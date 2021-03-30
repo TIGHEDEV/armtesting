@@ -110,7 +110,7 @@
         "description": "The name of the key vault to be created."
       }
     },
-      "keyVaultskuName": {
+      "keyVaultSkuName": {
       "type": "string",
       "defaultValue": "Standard",
       "allowedValues": [
@@ -172,7 +172,7 @@
         "tenantId": "[subscription().tenantId]",
         "accessPolicies": [],
       "sku": {
-        "name": "[parameters('keyVaultskuName')]",
+        "name": "[parameters('keyVaultSkuName')]",
         "family": "A"
       },
         "networkAcls": {
