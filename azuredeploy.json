@@ -2,75 +2,6 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-08-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-      /*"workspaceName": {
-          "type": "string",
-          "metadata": {
-            "description": "Name of the workspace."
-          }
-      },
-      "sku": {
-          "type": "string",
-          "allowedValues": [
-            "pergb2018",
-            "Free",
-            "Standalone",
-            "PerNode",
-            "Standard",
-            "Premium"
-            ],
-          "defaultValue": "pergb2018",
-          "metadata": {
-          "description": "Pricing tier: PerGB2018 or legacy tiers (Free, Standalone, PerNode, Standard or Premium) which are not available to all customers."
-          }
-        },
-        "location": {
-          "type": "string",
-          "allowedValues": [
-          "australiacentral", 
-          "australiaeast", 
-          "australiasoutheast", 
-          "brazilsouth",
-          "canadacentral", 
-          "centralindia", 
-          "centralus", 
-          "eastasia", 
-          "eastus", 
-          "eastus2", 
-          "francecentral", 
-          "japaneast", 
-          "koreacentral", 
-          "northcentralus", 
-          "northeurope", 
-          "southafricanorth", 
-          "southcentralus", 
-          "southeastasia",
-          "switzerlandnorth",
-          "switzerlandwest",
-          "uksouth", 
-          "ukwest", 
-          "westcentralus", 
-          "westeurope", 
-          "westus", 
-          "westus2" 
-          ],
-          "metadata": {
-              "description": "Specifies the location for the workspace."
-              }
-        },
-        "retentionInDays": {
-          "type": "int",
-          "defaultValue": 120,
-          "metadata": {
-            "description": "Number of days to retain data."
-          }
-        },
-        "resourcePermissions": {
-          "type": "bool",
-          "metadata": {
-            "description": "true to use resource or workspace permissions. false to require workspace permissions."
-          }
-        },*/
-
       "storageAccountName": {
       "type": "string",
       "metadata": {
@@ -90,14 +21,14 @@
         "description": "Storage Account type"
       }
     },
-    "storageAccountLocation": {
+      "storageAccountLocation": {
       "type": "string",
       "defaultValue": "[resourceGroup().location]",
       "metadata": {
         "description": "Location for all resources."
       }
-  },
-    "apimResourceName":{
+    },
+      "apimResourceName":{
       "type": "string",
       "metadata": {
         "description": "The name of the APIM resource"
@@ -110,14 +41,14 @@
         "description": "The email address of the owner of the service"
       }
     },
-    "publisherName": {
+      "publisherName": {
       "type": "string",
       "minLength": 1,
       "metadata": {
         "description": "The name of the owner of the service"
       }
     },
-    "APISku": {
+      "APISku": {
       "type": "string",
       "defaultValue": "Developer",
       "allowedValues": [
@@ -129,7 +60,7 @@
         "description": "The pricing tier of this API Management service"
       }
     },
-    "APISkuCount": {
+      "APISkuCount": {
       "type": "string",
       "defaultValue": "1",
       "allowedValues": [
@@ -140,7 +71,7 @@
         "description": "The instance size of this API Management service."
       }
     },
-    "APILocation": {
+      "APILocation": {
       "type": "string",
       "defaultValue": "[resourceGroup().location]",
       "metadata": {
@@ -148,13 +79,13 @@
       }
     },
     
-    "serviceBusNamespaceName": {
+      "serviceBusNamespaceName": {
       "type": "string",
       "metadata": {
         "description": "Name of the Service Bus namespace"
       }
     },
-    "serviceBusSku": {
+      "serviceBusSku": {
       "type": "string",
       "allowedValues": [
         "Basic",
@@ -166,21 +97,20 @@
         "description": "The messaging tier for service Bus namespace"
       }
     },
-    "serviceBusLocation": {
+      "serviceBusLocation": {
       "type": "string",
       "defaultValue": "[resourceGroup().location]",
       "metadata": {
         "description": "Location for all resources."
       }
-    },
-      
-    "vaultName": {
+    },    
+      "vaultName": {
       "type": "string",
       "metadata": {
         "description": "The name of the key vault to be created."
       }
     },
-    "keyVaultskuName": {
+      "keyVaultskuName": {
       "type": "string",
       "defaultValue": "Standard",
       "allowedValues": [
@@ -191,29 +121,8 @@
         "description": "The SKU of the vault to be created."
       }
     }
-},
-      
-    /*"variables": {
-    "apiManagementServiceName": "[concat('apiservice', uniqueString(resourceGroup().id))]"
-  },*/
+   },
       "resources": [
-      /*{
-          "type": "Microsoft.OperationalInsights/workspaces",
-          "name": "[parameters('workspaceName')]",
-          "apiVersion": "2020-08-01",
-          "location": "[parameters('location')]",
-          "properties": {
-              "sku": {
-                  "name": "[parameters('sku')]"
-              },
-              "retentionInDays": "[parameters('retentionInDays')]",
-              "features": {
-                  "searchVersion": 1,
-                  "legacy": 0,
-                  "enableLogAccessUsingOnlyResourcePermissions": "[parameters('resourcePermissions')]"
-              }
-          }
-      },*/
       {
       "type": "Microsoft.Storage/storageAccounts",
       "apiVersion": "2019-04-01",
@@ -226,7 +135,7 @@
       "properties": {}
     },
       {
-        "type": "Microsoft.ApiManagement/service",
+      "type": "Microsoft.ApiManagement/service",
       "apiVersion": "2019-12-01",
       "name": "[parameters('apimResourceName')]",
       "location": "[parameters('APILocation')]",
@@ -234,13 +143,13 @@
         "name": "[parameters('APISku')]",
         "capacity": "[parameters('APISkuCount')]"
       },
-        "properties": {
-          "publisherEmail": "[parameters('publisherEmail')]",
-          "publisherName": "[parameters('publisherName')]"
-        }
-      },
+      "properties": {
+        "publisherEmail": "[parameters('publisherEmail')]",
+        "publisherName": "[parameters('publisherName')]"
+      }
+    },
       {
-        "apiVersion": "2018-01-01-preview",
+      "apiVersion": "2018-01-01-preview",
       "name": "[parameters('serviceBusNamespaceName')]",
       "type": "Microsoft.ServiceBus/namespaces",
       "location": "[parameters('serviceBusLocation')]",
@@ -262,10 +171,10 @@
         "enabledForTemplateDeployment": false,
         "tenantId": "[subscription().tenantId]",
         "accessPolicies": [],
-        "sku": {
-          "name": "[parameters('keyVaultskuName')]",
-          "family": "A"
-        },
+      "sku": {
+        "name": "[parameters('keyVaultskuName')]",
+        "family": "A"
+      },
         "networkAcls": {
           "defaultAction": "Allow",
           "bypass": "AzureServices"
