@@ -70,6 +70,39 @@
             "description": "true to use resource or workspace permissions. false to require workspace permissions."
           }
         },*/
+
+      "storageAccountName": {
+      "type": "string",
+      "metadata": {
+        "description": "Specifies the name of the Azure Storage account."
+      }
+    },
+      "storageAccountType": {
+      "type": "string",
+      "defaultValue": "Standard_GRS",
+      "allowedValues": [
+        "Standard_LRS",
+        "Standard_GRS",
+        "Standard_ZRS",
+        "Premium_LRS"
+      ],
+      "metadata": {
+        "description": "Storage Account type"
+      }
+    },
+    "storageAccountLocation": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "metadata": {
+        "description": "Location for all resources."
+      }
+  },
+    "apimResourceName":{
+      "type": "string",
+      "metadata": {
+        "description": "The name of the APIM resource"
+      }
+    },
       "publisherEmail": {
       "type": "string",
       "minLength": 1,
@@ -160,9 +193,9 @@
     }
 },
       
-      "variables": {
+    /*"variables": {
     "apiManagementServiceName": "[concat('apiservice', uniqueString(resourceGroup().id))]"
-  },
+  },*/
       "resources": [
       /*{
           "type": "Microsoft.OperationalInsights/workspaces",
@@ -182,9 +215,20 @@
           }
       },*/
       {
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2019-04-01",
+      "name": "[parameters('storageAccountName')]",
+      "location": "[parameters('storageAccountLocation')]",
+      "sku": {
+        "name": "[parameters('storageAccountType')]"
+      },
+      "kind": "StorageV2",
+      "properties": {}
+    },
+      {
         "type": "Microsoft.ApiManagement/service",
       "apiVersion": "2019-12-01",
-      "name": "[variables('apiManagementServiceName')]",
+      "name": "[parameters('apimResourceName')]",
       "location": "[parameters('APILocation')]",
       "sku": {
         "name": "[parameters('APISku')]",
